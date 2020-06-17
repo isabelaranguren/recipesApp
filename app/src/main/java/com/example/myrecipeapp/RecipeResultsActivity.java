@@ -1,0 +1,12 @@
+package com.example.myrecipeapp;
+
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class RecipeResultsActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+}
