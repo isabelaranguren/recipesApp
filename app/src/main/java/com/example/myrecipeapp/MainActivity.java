@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.example.recipeapp.MESSAGE";
+    public static final String EXTRA_MESSAGE = "com.example.myrecipeapp.MESSAGE";
     private static final String TAG = "MainActivity";
 
 
