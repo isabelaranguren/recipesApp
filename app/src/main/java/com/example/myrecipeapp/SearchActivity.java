@@ -1,4 +1,4 @@
-package com.example.recipeapp;
+package com.example.myrecipeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.example.recipeapp.MESSAGE";
+    public static final String EXTRA_MESSAGE = "com.example.myrecipeapp.MESSAGE";
     private static final String TAG = "SearchActivity";
     private ArrayAdapter<String> arrayAdapter;
     public ArrayList<String> ingredientsList;
