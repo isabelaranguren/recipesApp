@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 public class RecipeLoader {
     private static final String API_KEY = "cab6a9c0a9f8487fb902b9f9a2558a58";
-    private static final String URL_ENDPOINT_RECIPE = "https://api.spoonacular.com/recipes/";
+    private static final String URL_ENDPOINT_RECIPE = "https://api.spoonacular.com/recipes/findByIngredients";
 
     private String apiCharset;
 
@@ -52,14 +52,14 @@ public class RecipeLoader {
     /**
      * This function will prepare the URL for the current Recipe call
      * and return the JSON result.
-     * @param id
+     * @param ingredients
      * @return
      * @throws IOException
      */
-    private String getRecipeJson(int id) throws IOException {
-        String url = String.format("%s/analyzedInstructions?apiKey=",
-                // Concatenate endpoint & recipe id
-                URL_ENDPOINT_RECIPE + id,
+    private String getRecipeJson(String ingredients) throws IOException {
+        String url = String.format("%s?ingredients=%s&apiKey=",
+                URL_ENDPOINT_RECIPE,
+                URLEncoder.encode(ingredients, apiCharset),
                 URLEncoder.encode(API_KEY, apiCharset));
 
         return getHttpResults(url);
@@ -67,25 +67,25 @@ public class RecipeLoader {
 
     /**
      * Calls the weather api for recipe of the provided id.
-     * @param id
-     * @return
+     * @param ingredients
+     * @return recipeList
      * @throws IOException
      */
-    public RecipeElements getRecipe(int id) throws IOException {
+    public RecipeList getRecipe(String ingredients) throws IOException {
         // Call the API
-        String results = getRecipeJson(id);
+        String results = getRecipeJson(ingredients);
 
         // Use GSON to deserialize the result
         Gson gson = new Gson();
-        RecipeElements elements = gson.fromJson(results, RecipeElements.class);
+        RecipeList recipes = gson.fromJson(results, RecipeList.class);
 
-        return elements;
+        return recipes;
     }
 
-    public void getRecipeAndPostResults(int id, RecipeResultHandler handler) {
+    public void getRecipeAndPostResults(String ingredients, RecipeResultHandler handler) {
         try {
-            RecipeElements elements = getRecipe(id);
-            handler.handleResult(elements);
+            RecipeList recipes = getRecipe(ingredients);
+            handler.handleResult(recipes);
         } catch (IOException e) {
             // TODO: Decide what to do here...
             e.printStackTrace();

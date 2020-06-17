@@ -6,17 +6,17 @@ public class GetRecipeAsync implements Runnable {
 
     private MainActivity activity;;
 
-    private int id;
+    private String ingredients;
 
     /**
      * Sets up the runnable to be called. It needs the MainActivity so it can run code on the
      * UI thread, and also the id so that it can get the recipe steps.
      * @param activity
-     * @param id
+     * @param ingredients
      */
-    public GetRecipeAsync(MainActivity activity, int id) {
+    public GetRecipeAsync(MainActivity activity, String ingredients) {
         this.activity = activity;
-        this.id = id;
+        this.ingredients = ingredients;
     }
 
     @Override
@@ -27,9 +27,9 @@ public class GetRecipeAsync implements Runnable {
 
         // Now, call the function that will get the results from the API
 
-        loader.getRecipeAndPostResults(id, new RecipeResultHandler() {
+        loader.getRecipeAndPostResults(ingredients, new RecipeResultHandler() {
             @Override
-            public void handleResult(final RecipeElements elements) {
+            public void handleResult(final RecipeList recipes) {
                 Log.d("GetRecipeAsync", "Back from API, but still on background thread.");
                 // At this point we will be back from the API with the results stored in `elements`
 
@@ -38,10 +38,11 @@ public class GetRecipeAsync implements Runnable {
                     public void run() {
                         // This is code that will now run on the UI thread. Call the function in
                         // MainActivity that will update the UI correctly.
-                        activity.handleRecipeElementsResult(elements);
+                        activity.handleRecipeListResult(recipes);
                     }
                 });
             }
         });
     }
 }
+
