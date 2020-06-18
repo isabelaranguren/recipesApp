@@ -12,14 +12,18 @@
         <activity android:name="com.example.myrecipeapp.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="com.example.myrecipeapp.MainActivity">
-
         </activity>
         <activity android:name="com.example.myrecipeapp.IntroActivity">
+        </activity>
+         <activity
+            android:name=".SearchActivity" >
+        </activity>
+        <activity
+            android:name=".RecipeResultsActivity" >
         </activity>
     </application>
 </manifest>
