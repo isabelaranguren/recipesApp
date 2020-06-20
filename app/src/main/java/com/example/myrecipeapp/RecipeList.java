@@ -2,17 +2,17 @@ package com.example.myrecipeapp;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeList {
 
-    @SerializedName("")
-    private List<Recipe> recipes;
+    private RecipeList recipes;
 
-    public List<Recipe> getRecipes() {
+    public RecipeList getRecipes() {
         return recipes;
     }
-    public void setRecipes(List<Recipe> recipes) {
+    public void setRecipes(RecipeList recipes) {
         this.recipes = recipes;
     }
 }

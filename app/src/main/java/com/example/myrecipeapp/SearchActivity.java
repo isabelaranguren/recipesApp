@@ -28,7 +28,6 @@ public class SearchActivity extends AppCompatActivity {
     public TextView autocomplete_text;
     private EditText EditTextInput;
     private String first_hit;
-    private RecipeResultsActivity activity;
 
     long delay = 500; // 0.5 seconds after user stops typing
     long last_text_edit = 0;
@@ -151,18 +150,8 @@ public class SearchActivity extends AppCompatActivity {
     /** TODO Pass ingredientsList data for Recipe Search Results */
     public void findRecipes(View view) {
         Log.d(TAG, "About to create intent for RecipeResultsActivity");
-
-        // Set up a new instance of our runnable object that will be run on the background thread
-        GetRecipeAsync getRecipeAsync = new GetRecipeAsync(activity, ingredientsList);
-
-        // Set up the thread that will use our runnable object
-        Thread t = new Thread(getRecipeAsync);
-
-        // starts the thread in the background. It will automatically call the run method of
-        // the getRecipeAsync object we gave it earlier
-        t.start();
-
         Intent intent = new Intent(this, RecipeResultsActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, ingredientsList);
         startActivity(intent);
     }
 

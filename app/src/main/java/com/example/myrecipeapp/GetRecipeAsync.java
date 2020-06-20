@@ -38,7 +38,7 @@ public class GetRecipeAsync implements Runnable {
 
         loader.getRecipeAndPostResults(ingredients, new RecipeResultHandler() {
             @Override
-            public void handleResult(final RecipeList recipes) {
+            public void handleResult(final Recipe[] recipes) {
                 Log.d("GetRecipeAsync", "Back from API, but still on background thread.");
                 // At this point we will be back from the API with the results stored in `elements`
 

@@ -71,20 +71,20 @@ public class RecipeLoader {
      * @return recipeList
      * @throws IOException
      */
-    public RecipeList getRecipe(String ingredients) throws IOException {
+    public Recipe[] getRecipe(String ingredients) throws IOException {
         // Call the API
         String results = getRecipeJson(ingredients);
 
         // Use GSON to deserialize the result
         Gson gson = new Gson();
-        RecipeList recipes = gson.fromJson(results, RecipeList.class);
+        Recipe[] recipes = gson.fromJson(results, Recipe[].class);
 
         return recipes;
     }
 
     public void getRecipeAndPostResults(String ingredients, RecipeResultHandler handler) {
         try {
-            RecipeList recipes = getRecipe(ingredients);
+            Recipe[] recipes = getRecipe(ingredients);
             handler.handleResult(recipes);
         } catch (IOException e) {
             // TODO: Decide what to do here...
