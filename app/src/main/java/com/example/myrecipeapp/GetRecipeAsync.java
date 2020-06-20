@@ -1,23 +1,32 @@
 package com.example.myrecipeapp;
 
+import android.text.TextUtils;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 public class GetRecipeAsync implements Runnable {
 
-    private MainActivity activity;;
+    private RecipeResultsActivity activity;;
 
-    private String ingredients;
+    public ArrayList<String> ingredientsList;
+
+    public String ingredients;
+
 
     /**
      * Sets up the runnable to be called. It needs the MainActivity so it can run code on the
      * UI thread, and also the id so that it can get the recipe steps.
      * @param activity
-     * @param ingredients
+     * @param ingredientsList
      */
-    public GetRecipeAsync(MainActivity activity, String ingredients) {
+    public GetRecipeAsync(RecipeResultsActivity activity, ArrayList<String> ingredientsList) {
         this.activity = activity;
-        this.ingredients = ingredients;
+        this.ingredientsList = ingredientsList;
+        this.ingredients = TextUtils.join(",+ ", ingredientsList);
     }
+
+
 
     @Override
     public void run() {

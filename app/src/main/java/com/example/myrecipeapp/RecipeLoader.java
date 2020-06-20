@@ -57,7 +57,7 @@ public class RecipeLoader {
      * @throws IOException
      */
     private String getRecipeJson(String ingredients) throws IOException {
-        String url = String.format("%s?ingredients=%s&apiKey=",
+        String url = String.format("%s?ingredients=%s&apiKey=%s",
                 URL_ENDPOINT_RECIPE,
                 URLEncoder.encode(ingredients, apiCharset),
                 URLEncoder.encode(API_KEY, apiCharset));
