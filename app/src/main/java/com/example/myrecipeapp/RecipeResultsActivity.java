@@ -3,6 +3,8 @@ package com.example.myrecipeapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,8 +22,6 @@ public class RecipeResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_recipe_results);
 
         Log.d(TAG, "Received intent from SearchActivity");
 
@@ -55,9 +55,9 @@ public class RecipeResultsActivity extends AppCompatActivity {
         } else {
             Log.d(TAG, "recipes: " + recipes[0].getId());
 
-            // Show the temperature to the user
+            // Success Message
             Toast.makeText(this, "Successfully retrieved recipes",
                     Toast.LENGTH_LONG).show();
+            }
         }
-    }
 }
