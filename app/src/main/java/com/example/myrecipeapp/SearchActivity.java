@@ -33,7 +33,6 @@ public class SearchActivity extends AppCompatActivity {
     long last_text_edit = 0;
     Handler handler = new Handler();
 
-
     // Runs Autocomplete .5 secs after last keystroke
     private Runnable input_finish_checker = new Runnable() {
         public void run() {
@@ -45,7 +44,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         }
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +152,4 @@ public class SearchActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, ingredientsList);
         startActivity(intent);
     }
-
-
 }

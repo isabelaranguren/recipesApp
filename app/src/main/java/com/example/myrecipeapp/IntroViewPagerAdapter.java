@@ -19,11 +19,13 @@ public class IntroViewPagerAdapter extends PagerAdapter {
         this.mContext = mContext;
         this.mListScreen = mListScreen;
     }
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
         View layoutScreen = inflater.inflate(R.layout.layout_screen,null);
 
         ImageView imgSlide = layoutScreen.findViewById(R.id.intro_img);
