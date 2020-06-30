@@ -11,22 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.myrecipeapp.SplashActivity">
-        </activity>
-        <activity
-            android:name="com.example.myrecipeapp.MainActivity">
+        <activity android:name=".GoogleSignInActivity"></activity>
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.myrecipeapp.IntroActivity">
-        </activity>
-         <activity
-            android:name=".SearchActivity" >
-        </activity>
-        <activity
-            android:name=".RecipeResultsActivity" >
-        </activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".IntroActivity"></activity>
+        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".RecipeResultsActivity"></activity>
     </application>
+
 </manifest>
