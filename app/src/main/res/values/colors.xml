@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorPrimaryDark">#14171a</color>
+    <color name="colorAccent">#59c3c3</color>
 
     <!-- colors for button style -->
-
     <color name="gradient_start_color">#4c84ff</color>
     <color name="gradient_end_color">#18a3fe</color>
 
-
-    <!-- colors for tab and screent text -->
-
+    <!-- colors for tab and screen text -->
     <color name="tab_indicator_gray">#c0c0c0</color>
-    <color name="intro_title_color">#000000</color>
-    <color name="intro_description_color">#656565</color>
+    <color name="intro_title_color">#14171a</color>
+    <color name="intro_description_color">#657786</color>
 
+    <color name="grey_100">#F5F8FA</color>
+    <color name="grey_300">#E1E8ED</color>
+    <color name="grey_400">#AAB8C2</color>
+    <color name="darkGrey">#657786</color>
+
+    <color name="login_form_details">#ccffffff</color>
+    <color name="login_form_details_light">#1affffff</color>
+    <color name="login_form_details_medium">#66ffffff</color>
 
 
 

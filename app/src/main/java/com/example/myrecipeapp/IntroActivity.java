@@ -33,8 +33,8 @@ public class IntroActivity extends AppCompatActivity {
 
         // Checks if application has been launched before
         if (restorePrefData()) {
-            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class );
-            startActivity(mainActivity);
+            Intent SignInActivity = new Intent(getApplicationContext(), SearchActivity.class );
+            startActivity(SignInActivity);
             finish();
         }
 
@@ -111,8 +111,8 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //opens main activity
-                Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(mainActivity);
+                Intent SignActivity = new Intent(getApplicationContext(),SignInActivity.class);
+                startActivity(SignActivity);
                 savePrefsData();
                 finish();
 
@@ -129,7 +129,6 @@ public class IntroActivity extends AppCompatActivity {
         });
 
     }
-
     private boolean restorePrefData() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
         Boolean isIntroActivityOpenedBefore = pref.getBoolean("isIntroOpened",false);
