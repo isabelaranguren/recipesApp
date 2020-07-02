@@ -30,24 +30,16 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // make the activity on full screen
-
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
 
         // Checks if application has been launched before
         if (restorePrefData()) {
-            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class );
-            startActivity(mainActivity);
+            Intent SignInActivity = new Intent(getApplicationContext(), SearchActivity.class );
+            startActivity(SignInActivity);
             finish();
         }
 
         setContentView(R.layout.activity_intro);
-        // hide the action bar
 
-        getSupportActionBar().hide();
 
         // ini views
         btnNext = findViewById(R.id.btn_next);
@@ -67,7 +59,7 @@ public class IntroActivity extends AppCompatActivity {
         introViewPagerAdapter = new IntroViewPagerAdapter(this,mList);
         screenPager.setAdapter(introViewPagerAdapter);
 
-        // setup Tablayout with viewpager
+        // setup TableLayout with viewpager
         tabIndicator.setupWithViewPager(screenPager);
 
         // next button click Listener
@@ -83,9 +75,9 @@ public class IntroActivity extends AppCompatActivity {
 
                 }
 
-                if (position == mList.size()-1) { // when we rech to the last screen
+                if (position == mList.size()-1) { // when we reach to the last screen
 
-                    loaddLastScreen();
+                    loadLastScreen();
 
 
                 }
@@ -99,7 +91,7 @@ public class IntroActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
 
                 if (tab.getPosition() == mList.size()-1) {
-                    loaddLastScreen();
+                    loadLastScreen();
                 }
             }
 
@@ -119,8 +111,8 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //opens main activity
-                Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(mainActivity);
+                Intent SignActivity = new Intent(getApplicationContext(),SignInActivity.class);
+                startActivity(SignActivity);
                 savePrefsData();
                 finish();
 
@@ -137,7 +129,6 @@ public class IntroActivity extends AppCompatActivity {
         });
 
     }
-
     private boolean restorePrefData() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
         Boolean isIntroActivityOpenedBefore = pref.getBoolean("isIntroOpened",false);
@@ -152,8 +143,8 @@ public class IntroActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    // Display the GETSTARTED Button and hide the indicator and the next button
-    private void loaddLastScreen() {
+    // Display the GET STARTED Button and hide the indicator and the next button
+    private void loadLastScreen() {
 
         btnNext.setVisibility(View.INVISIBLE);
         btnGetStarted.setVisibility(View.VISIBLE);

@@ -7,26 +7,27 @@
     android:background="#FFFF"
     tools:context=".MainActivity">
 
+
     <Button
-        android:id="@+id/button3"
-        android:layout_width="167dp"
-        android:layout_height="61dp"
-        android:background="#00BCD4"
+        android:id="@+id/google_signIn"
+        android:text="@string/sign_in_with_google"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
         android:onClick="searchRecipes"
-        android:text="@string/log_in"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
+        android:background="@drawable/custom_btn"
         app:layout_constraintVertical_bias="0.09" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="167dp"
-        android:layout_height="61dp"
-        android:background="#00BCD4"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_btn"
         android:onClick="searchRecipes"
         android:text="@string/find_recipes"
         android:textColor="#FFFFFF"
@@ -38,19 +39,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.644" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="196dp"
-        android:layout_height="144dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginBottom="40dp"
-        android:contentDescription="@string/app_icon"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/app_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
