@@ -67,15 +67,7 @@ public class SearchActivity extends AppCompatActivity {
 
         // Create the List and the ArrayAdapter
         ingredientsList = new ArrayList<>();
-        //arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ingredientsList);
 
-        // Now connect the ArrayAdapter to the ListView
-        //ListView listView = findViewById(R.id.ingredientsListView);
-        //listView.setAdapter(arrayAdapter);
-
-        /**
-         *
-         */
         // Create the CustomAdapter for the Search Results
         ListView listView = findViewById(R.id.ingredientsListView);
         adapter = new CustomAdapter(this, R.layout.custom_ingredient_layout, ingredientsList);

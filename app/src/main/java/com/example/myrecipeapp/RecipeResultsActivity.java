@@ -3,6 +3,8 @@ package com.example.myrecipeapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,18 +87,17 @@ public class RecipeResultsActivity extends AppCompatActivity {
 
 
             // Launch new Activity when ListView item is clicked
-            /** < ? >
+            // @MARTIN: Change RecipeInfo.class to your class
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView  parent, View view, int position, long id) {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                     // When clicked, open new Activity for Recipe's full info
                     Intent intent = new Intent(this, RecipeInfo.class);
                     intent.putExtra("recipe_id", recipes[position].getId());
                     startActivity(intent);
-
                 }
-
             });
-             */
+
             }
 
 
