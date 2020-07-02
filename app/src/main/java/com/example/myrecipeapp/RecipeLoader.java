@@ -1,5 +1,9 @@
 package com.example.myrecipeapp;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.google.gson.Gson;
 
 import java.io.*;
@@ -14,6 +18,7 @@ public class RecipeLoader {
 
     private String apiCharset;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public RecipeLoader() {
         // Encoding - Default is UTF-8
         apiCharset = StandardCharsets.UTF_8.name();
