@@ -29,7 +29,6 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.example.myrecipeapp.MESSAGE";
     private static final String TAG = "SearchActivity";
     public ArrayList<String> ingredientsList;
     public CustomAdapter adapter;
@@ -37,7 +36,7 @@ public class SearchActivity extends AppCompatActivity {
     private EditText EditTextInput;
     private String first_hit;
 
-    long delay = 200; // 0.2 seconds after user stops typing
+    long delay = 500; // 0.5 seconds after user stops typing
     long last_text_edit = 0;
     Handler handler = new Handler();
 
@@ -169,7 +168,7 @@ public class SearchActivity extends AppCompatActivity {
     public void findRecipes(View view) {
         Log.d(TAG, "About to create intent for RecipeResultsActivity");
         Intent intent = new Intent(this, RecipeResultsActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, ingredientsList);
+        intent.putExtra("ingredients", ingredientsList);
         startActivity(intent);
     }
 

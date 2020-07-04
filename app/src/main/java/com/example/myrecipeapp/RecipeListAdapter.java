@@ -17,7 +17,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class RecipeListAdapter extends ArrayAdapter<Recipe> {
+public class RecipeListAdapter extends ArrayAdapter<RecipeFull> {
 
     /**
      * Custom Adapter for Recipe Results ListView
@@ -27,7 +27,7 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
     private final Context context;
     int resource;
 
-    public RecipeListAdapter(Context context, int resource, ArrayList<Recipe> recipes) {
+    public RecipeListAdapter(Context context, int resource, ArrayList<RecipeFull> recipes) {
         super(context, resource, recipes);
         this.context = context;
         this.resource = resource;

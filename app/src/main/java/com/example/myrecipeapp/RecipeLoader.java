@@ -11,10 +11,14 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class RecipeLoader {
-    private static final String API_KEY = "cab6a9c0a9f8487fb902b9f9a2558a58";
+    //private static final String API_KEY = "cab6a9c0a9f8487fb902b9f9a2558a58"; /40dbe64d6bcc4634b8b49e64a6936e48/
+    private static final String API_KEY = "f84904e3b9564ea2966a4f537c261b8a";
     private static final String URL_ENDPOINT_RECIPE = "https://api.spoonacular.com/recipes/findByIngredients";
+
+    private static final String URL_ENDPOINT_RECIPE_FULL ="https://api.spoonacular.com/recipes/";
 
     private String apiCharset;
 
@@ -76,7 +80,7 @@ public class RecipeLoader {
      * @return recipeList
      * @throws IOException
      */
-    public Recipe[] getRecipe(String ingredients) throws IOException {
+    public ArrayList<RecipeFull> getRecipe(String ingredients) throws IOException {
         // Call the API
         String results = getRecipeJson(ingredients);
 
@@ -84,12 +88,23 @@ public class RecipeLoader {
         Gson gson = new Gson();
         Recipe[] recipes = gson.fromJson(results, Recipe[].class);
 
-        return recipes;
+        //-----------------------------------------------------------------------//
+        ArrayList<Integer> idList = new ArrayList<>();
+
+        for (Recipe recipe : recipes) {
+            idList.add(recipe.getId());
+        }
+
+        ArrayList<RecipeFull> full_recipes = getFullInfo(idList);
+
+        //-----------------------------------------------------------------------//
+
+        return full_recipes;
     }
 
     public void getRecipeAndPostResults(String ingredients, RecipeResultHandler handler) {
         try {
-            Recipe[] recipes = getRecipe(ingredients);
+            ArrayList<RecipeFull> recipes = getRecipe(ingredients);
             handler.handleResult(recipes);
         } catch (IOException e) {
             // TODO: Decide what to do here...
@@ -97,5 +112,31 @@ public class RecipeLoader {
             handler.handleResult(null);
         }
     }
+
+
+    //-----------------------------------------------------------------------//
+
+    public ArrayList<RecipeFull> getFullInfo(ArrayList<Integer> idList) throws IOException {
+
+        ArrayList<RecipeFull> recipeList = new ArrayList<>();
+
+        for (Integer id : idList) {
+            String url = String.format("%s%s/information?includeNutrition=false&apiKey=%s",
+                    URL_ENDPOINT_RECIPE_FULL,
+                    URLEncoder.encode(String.valueOf(id), apiCharset),
+                    URLEncoder.encode(API_KEY, apiCharset));
+
+            String results = getHttpResults(url);
+
+            Gson gson = new Gson();
+            RecipeFull recipe = gson.fromJson(results, RecipeFull.class);
+
+            recipeList.add(recipe);
+        }
+
+        return recipeList;
+
+    }
+
 
 }

@@ -2,15 +2,19 @@ package com.example.myrecipeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class RecipeResultsActivity extends AppCompatActivity {
@@ -21,8 +25,10 @@ public class RecipeResultsActivity extends AppCompatActivity {
      */
 
     private static final String TAG = "RecipeResultsActivity";
-    public List ingredientsList;
-    public ArrayList<Recipe> recipeList;
+    public ArrayList<String> ingredientsList = new ArrayList<>();
+    public HashMap<String, Boolean> filters = new HashMap<>();
+    public ImageButton filterButton;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +39,8 @@ public class RecipeResultsActivity extends AppCompatActivity {
         Log.d(TAG, "Received intent from SearchActivity");
 
         // Get the Intent that started this activity
-        Intent intent = getIntent();
-        ingredientsList = intent.getStringArrayListExtra(SearchActivity.EXTRA_MESSAGE);
+        intent = getIntent();
+        ingredientsList = intent.getStringArrayListExtra("ingredients");
 
         // Set up a new instance of our runnable object that will be run on the background thread
         GetRecipeAsync getRecipeAsync = new GetRecipeAsync(this, (ArrayList<String>) ingredientsList);
@@ -58,6 +64,9 @@ public class RecipeResultsActivity extends AppCompatActivity {
         String str = "Recipes with: " + sb.toString();
         textView.setText(str);
 
+        //-----------------------------------------------//
+        filterButton = findViewById(R.id.filterOptionsButton);
+
     }
 
 
@@ -65,9 +74,62 @@ public class RecipeResultsActivity extends AppCompatActivity {
      * Displays recipes in custom layout ListView
      * @param recipes
      */
-    void handleRecipeListResult(final Recipe[] recipes) {
+    void handleRecipeListResult(final ArrayList<RecipeFull> recipes) {
         Log.d(TAG, "Back from API on the UI thread with the recipe results!");
-        recipeList = new ArrayList<>(Arrays.asList(recipes));
+
+        for (RecipeFull recipe : recipes) {
+            Log.d(TAG, recipe.getTitle() + recipe.getDairyFree());
+        }
+
+        //--------------------------------------------------//
+        Log.d(TAG, String.valueOf(recipes));
+
+        if (intent.getSerializableExtra("filters") != null) {
+            filters = (HashMap<String, Boolean>) intent.getSerializableExtra("filters");
+        } else {
+            filters.put("Dairy-free", false);
+            filters.put("Gluten-free", false);
+            filters.put("Vegan", false);
+        }
+
+        Log.d(TAG, String.valueOf(filters));
+
+
+        ArrayList<RecipeFull> filteredRecipes = new ArrayList<>();
+
+        if (filters.get("Dairy-free")) {
+            for (RecipeFull recipe : recipes) {
+                if (recipe.getDairyFree()) {
+                    filteredRecipes.add(recipe);
+                }
+            }
+        }
+        else if (filters.get("Gluten-free")) {
+            for (RecipeFull recipe : recipes) {
+                if (recipe.getGlutenFree()) {
+                    filteredRecipes.add(recipe);
+                }
+            }
+        }
+        else if (filters.get("Vegan")) {
+            for (RecipeFull recipe : recipes) {
+                if (recipe.getVegan()) {
+                    filteredRecipes.add(recipe);
+                }
+            }
+        }
+        else {
+            filteredRecipes = recipes;
+        }
+
+
+        for (RecipeFull recipe : filteredRecipes) {
+            Log.d(TAG, recipe.getTitle() + recipe.getDairyFree());
+        }
+
+
+        //------------------------------------------------//
+
 
         // Check for an error
         if (recipes == null) {
@@ -82,12 +144,13 @@ public class RecipeResultsActivity extends AppCompatActivity {
             ListView listView = findViewById(R.id.searchResults);
 
             // Create the CustomAdapter for the Search Results
-            RecipeListAdapter adapter = new RecipeListAdapter(this, R.layout.custom_recipe_layout, recipeList);
+            RecipeListAdapter adapter = new RecipeListAdapter(this, R.layout.custom_recipe_layout, filteredRecipes);
             listView.setAdapter(adapter);
 
 
             // Launch new Activity when ListView item is clicked
             // @MARTIN: Change RecipeInfo.class to your class
+            /**
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -96,11 +159,19 @@ public class RecipeResultsActivity extends AppCompatActivity {
                     intent.putExtra("recipe_id", recipes[position].getId());
                     startActivity(intent);
                 }
-            });
+            });*/
 
             }
 
 
         }
+
+    public void filterResults(View view) {
+        Log.d(TAG, "About to create intent for Filters Activity");
+        Intent intent = new Intent(this, FiltersActivity.class);
+        intent.putExtra("ingredients", ingredientsList);
+        Log.d(TAG, String.valueOf(ingredientsList));
+        startActivity(intent);
+    }
 
 }
