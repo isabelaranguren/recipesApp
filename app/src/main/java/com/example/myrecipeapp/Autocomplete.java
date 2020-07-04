@@ -16,20 +16,23 @@ import java.net.URLEncoder;
 
 public class Autocomplete implements Runnable {
 
+    /**
+     * Background thread that runs to get autocomplete
+     * based on user's input in the Search bar
+     */
+
     // Create variables for URL elements
     private static final String url = "https://api.spoonacular.com/food/ingredients/";
     private static final String key = "a3f6c7c9e522490c86b86681e683606b";
     private static final String charset = "UTF-8";
     private static final String TAG = "Autocomplete";
-
     private final String input;
     private WeakReference<SearchActivity> activityRef;
     public String first_hit;
-    private TextView textView;
 
     Autocomplete(String input, SearchActivity activity) {
         this.input = input;
-        this.activityRef = new WeakReference<SearchActivity>(activity);
+        this.activityRef = new WeakReference<>(activity);
     }
 
 

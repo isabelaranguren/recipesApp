@@ -19,11 +19,6 @@ import java.util.List;
 
 public class RecipeResultsActivity extends AppCompatActivity {
 
-    /**
-     * Launches GetRecipeAsync to get recipes from API call
-     * then displays the results in the ListView
-     */
-
     private static final String TAG = "RecipeResultsActivity";
     public ArrayList<String> ingredientsList = new ArrayList<>();
     public HashMap<String, Boolean> filters = new HashMap<>();
@@ -35,12 +30,14 @@ public class RecipeResultsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
-
         Log.d(TAG, "Received intent from SearchActivity");
 
         // Get the Intent that started this activity
         intent = getIntent();
+
+        // Get ingredient list from Search Activity
         ingredientsList = intent.getStringArrayListExtra("ingredients");
+        Log.d(TAG, "Received ingredient list from SearchActivity");
 
         // Set up a new instance of our runnable object that will be run on the background thread
         GetRecipeAsync getRecipeAsync = new GetRecipeAsync(this, (ArrayList<String>) ingredientsList);
@@ -64,7 +61,7 @@ public class RecipeResultsActivity extends AppCompatActivity {
         String str = "Recipes with: " + sb.toString();
         textView.setText(str);
 
-        //-----------------------------------------------//
+        // Add filter button for search results
         filterButton = findViewById(R.id.filterOptionsButton);
 
     }
@@ -77,13 +74,8 @@ public class RecipeResultsActivity extends AppCompatActivity {
     void handleRecipeListResult(final ArrayList<RecipeFull> recipes) {
         Log.d(TAG, "Back from API on the UI thread with the recipe results!");
 
-        for (RecipeFull recipe : recipes) {
-            Log.d(TAG, recipe.getTitle() + recipe.getDairyFree());
-        }
-
-        //--------------------------------------------------//
-        Log.d(TAG, String.valueOf(recipes));
-
+        // Get filter info from Filter Activity's intent
+        // If null, set default values to false
         if (intent.getSerializableExtra("filters") != null) {
             filters = (HashMap<String, Boolean>) intent.getSerializableExtra("filters");
         } else {
@@ -92,11 +84,11 @@ public class RecipeResultsActivity extends AppCompatActivity {
             filters.put("Vegan", false);
         }
 
-        Log.d(TAG, String.valueOf(filters));
-
-
+        // Create arrayList for filtered recipes
         ArrayList<RecipeFull> filteredRecipes = new ArrayList<>();
 
+
+        // Check for filters
         if (filters.get("Dairy-free")) {
             for (RecipeFull recipe : recipes) {
                 if (recipe.getDairyFree()) {
@@ -123,20 +115,19 @@ public class RecipeResultsActivity extends AppCompatActivity {
         }
 
 
-        for (RecipeFull recipe : filteredRecipes) {
-            Log.d(TAG, recipe.getTitle() + recipe.getDairyFree());
-        }
-
-
-        //------------------------------------------------//
-
-
         // Check for an error
         if (recipes == null) {
             Log.d(TAG, "API results were null");
 
             // Inform the user
             Toast.makeText(this, "An error occurred when retrieving the recipes",
+                    Toast.LENGTH_LONG).show();
+        }
+        else if (filteredRecipes.size() == 0) {
+            Log.d(TAG, "No recipe matches filters");
+
+            // Inform the user that filters did not return any matches
+            Toast.makeText(this, "No recipes match your ingredients and filters",
                     Toast.LENGTH_LONG).show();
         } else {
             Log.d(TAG, "Successfully retrieved recipes!");
@@ -166,11 +157,16 @@ public class RecipeResultsActivity extends AppCompatActivity {
 
         }
 
+
+    /**
+     * Method for filter option button in Recipe Results Activity
+     * Launches Filter Activity and passes ingredientList
+      * @param view
+     */
     public void filterResults(View view) {
         Log.d(TAG, "About to create intent for Filters Activity");
         Intent intent = new Intent(this, FiltersActivity.class);
         intent.putExtra("ingredients", ingredientsList);
-        Log.d(TAG, String.valueOf(ingredientsList));
         startActivity(intent);
     }
 

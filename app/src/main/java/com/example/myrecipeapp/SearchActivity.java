@@ -36,10 +36,10 @@ public class SearchActivity extends AppCompatActivity {
     private EditText EditTextInput;
     private String first_hit;
 
+
     long delay = 500; // 0.5 seconds after user stops typing
     long last_text_edit = 0;
     Handler handler = new Handler();
-
 
     // Runs Autocomplete .5 secs after last keystroke
     private Runnable input_finish_checker = new Runnable() {
@@ -130,7 +130,12 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    /** Adds ingredients to listView */
+    /**
+     *  Adds user input ingredient to ingredientList then
+     *  updates the adapter to display
+     *  ingredient on the UI
+     *
+     */
     public void addIngredients(View view){
         EditText search_editText = (EditText) findViewById(R.id.search);
         String search_text = search_editText.getText().toString();

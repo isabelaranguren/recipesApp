@@ -2,7 +2,6 @@ package com.example.myrecipeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class FiltersActivity extends AppCompatActivity {
 
@@ -23,7 +21,7 @@ public class FiltersActivity extends AppCompatActivity {
      */
 
     private static final String TAG = "FiltersActivity";
-    HashMap<String, Boolean> filters = new HashMap<>();
+    public HashMap<String, Boolean> filters = new HashMap<>();
     public ArrayList<String> ingredientsList = new ArrayList<>();
     public Button filterResultsButton;
 
@@ -31,12 +29,11 @@ public class FiltersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
-
+        Log.d(TAG, "Received intent from RecipeResultsActivity");
 
         // Get the Intent that started this activity
         Intent intent = getIntent();
         ingredientsList = intent.getStringArrayListExtra("ingredients");
-
 
         // Initialize Filters button
         filterResultsButton = findViewById(R.id.filterButton);
@@ -44,6 +41,11 @@ public class FiltersActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks for user's filter choices then passes on this info
+     * thru intent to launch RecipeResultsActivity
+     * @param view
+     */
     public void filter(View view) {
         Log.d(TAG, "Creating intent for Search Results Activity to update results with filters");
 
@@ -61,16 +63,16 @@ public class FiltersActivity extends AppCompatActivity {
             filters.put("Gluten-free", false);
         }
 
-        Switch vegan = findViewById(R.id.vegan);
+        CheckBox vegan = findViewById(R.id.vegan);
         if(vegan.isChecked()){
             filters.put("Vegan", true);
         } else {
             filters.put("Vegan", false);
         }
 
-        Log.d(TAG, String.valueOf(filters));
+        Log.d(TAG, "Users filters: " + filters);
 
-
+        // Launch RecipeResultsActivity to display results based on filters
         Intent intent = new Intent(this, RecipeResultsActivity.class);
         intent.putExtra("filters", filters);
         intent.putExtra("ingredients", ingredientsList);
