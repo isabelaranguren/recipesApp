@@ -1,6 +1,8 @@
 package com.example.myrecipeapp;
 
+import java.util.ArrayList;
+
 public interface RecipeResultHandler {
-    void handleResult(Recipe[] recipes);
+    void handleResult(ArrayList<RecipeFull> recipes);
 }
 

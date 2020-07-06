@@ -2,9 +2,12 @@ package com.example.myrecipeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -149,14 +152,12 @@ public class RecipeResultsActivity extends AppCompatActivity {
 
         }
 
-
     }
-
 
     /**
      * Method for filter option button in Recipe Results Activity
      * Launches Filter Activity and passes ingredientList
-     * @param view
+      * @param view
      */
     public void filterResults(View view) {
         Log.d(TAG, "About to create intent for Filters Activity");
@@ -164,4 +165,5 @@ public class RecipeResultsActivity extends AppCompatActivity {
         intent.putExtra("ingredients", ingredientsList);
         startActivity(intent);
     }
+
 }

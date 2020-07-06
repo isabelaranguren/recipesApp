@@ -1,7 +1,10 @@
 package com.example.myrecipeapp;
 
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 
@@ -28,6 +31,7 @@ public class GetRecipeAsync implements Runnable {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void run() {
         // This is the function that will be run on the background thread.
@@ -38,7 +42,7 @@ public class GetRecipeAsync implements Runnable {
 
         loader.getRecipeAndPostResults(ingredients, new RecipeResultHandler() {
             @Override
-            public void handleResult(final Recipe[] recipes) {
+            public void handleResult(final ArrayList<RecipeFull> recipes) {
                 Log.d("GetRecipeAsync", "Back from API, but still on background thread.");
                 // At this point we will be back from the API with the results stored in `elements`
 
