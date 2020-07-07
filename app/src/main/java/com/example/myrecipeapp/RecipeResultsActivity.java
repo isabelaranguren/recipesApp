@@ -144,8 +144,8 @@ public class RecipeResultsActivity extends AppCompatActivity {
              listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
              // When clicked, open new Activity for Recipe's full info
-             Intent intent = new Intent(this, RecipeStepsActivity.class);
-             intent.putExtra("recipe_id", recipes[position].getId());
+             Intent intent = new Intent(getApplicationContext(), RecipeStepsActivity.class);
+             intent.putExtra("recipe_id", recipes.get(position).getId());
              startActivity(intent);
              }
              });

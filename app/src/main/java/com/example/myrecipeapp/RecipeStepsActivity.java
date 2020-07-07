@@ -1,12 +1,19 @@
 package com.example.myrecipeapp;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class RecipeStepsActivity extends AppCompatActivity {
 
@@ -19,11 +26,16 @@ public class RecipeStepsActivity extends AppCompatActivity {
 
     public int recipe_id;
 
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps);
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference().child("recipesdb");
 
         Log.d(TAG, "Received intent from RecipeResultsActivity");
 
@@ -41,12 +53,6 @@ public class RecipeStepsActivity extends AppCompatActivity {
         // the getRecipeAsync object we gave it earlier
         t.start();
 
-        // Display the ingredients user has typed for search results
-        TextView textView = findViewById(R.id.recipeId);
-
-        String str = "Recipes with: " + recipe_id;
-        textView.setText(str);
-
     }
 
     void handleStepsListResult(RecipeSteps[] recipe) {
@@ -62,9 +68,26 @@ public class RecipeStepsActivity extends AppCompatActivity {
         } else {
             Log.d("RecipeStepsActivity", "recipes: ");
 
+            ArrayList<Step> steps = recipe[0].getSteps();
+            ArrayList<String> stepString = new ArrayList<>();
+
+
+            for (int i = 0; i < steps.size(); i++) {
+                stepString.add(steps.get(i).getStep());
+            }
+
+
             // Show the temperature to the user
-            Toast.makeText(this, "Successfully retrieved recipes",
-                    Toast.LENGTH_LONG).show();
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.adapter_steps_layout, stepString);
+
+            ListView listView = (ListView)findViewById(R.id.stepDetails);
+            listView.setAdapter(adapter);
+
         }
+    }
+
+
+    public void saveRecipe(View view) {
+        mDatabaseReference.push().setValue(recipe_id);
     }
 }
