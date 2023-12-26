@@ -1,6 +1,8 @@
 package com.example.myrecipeapp;
 
 import com.google.gson.Gson;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,7 +35,7 @@ public class StepsLoader {
         System.out.println("Making call to URL: " + url);
 
         // Make a connection to the provided URL
-        URLConnection connection = new URL(url).openConnection();
+        URLConnection connection = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
 
         // Open the response stream and get a reader for it.
         InputStream responseStream = connection.getInputStream();

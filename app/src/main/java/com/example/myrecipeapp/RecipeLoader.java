@@ -5,6 +5,8 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.google.gson.Gson;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 
 import java.io.*;
 import java.net.URL;
@@ -37,7 +39,7 @@ public class RecipeLoader {
         System.out.println("Making call to URL: " + url);
 
         // Make a connection to the provided URL
-        URLConnection connection = new URL(url).openConnection();
+        URLConnection connection = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
 
         // Open the response stream and get a reader for it.
         InputStream responseStream = connection.getInputStream();
