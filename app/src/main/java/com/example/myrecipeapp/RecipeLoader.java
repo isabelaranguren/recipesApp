@@ -5,6 +5,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.google.gson.Gson;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.*;
 import java.net.URL;
@@ -50,7 +51,7 @@ public class RecipeLoader {
         StringBuilder stringBuilder = new StringBuilder();
 
         String line;
-        while ((line = reader.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
             stringBuilder.append(line);
         }
 

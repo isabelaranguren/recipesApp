@@ -1,6 +1,7 @@
 package com.example.myrecipeapp;
 
 import com.google.gson.Gson;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class StepsLoader {
         StringBuilder stringBuilder = new StringBuilder();
 
         String line;
-        while ((line = reader.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
             stringBuilder.append(line);
         }
 
