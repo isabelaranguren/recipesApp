@@ -5,6 +5,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -51,7 +53,7 @@ public class Autocomplete implements Runnable {
                     URLEncoder.encode(num, charset));
 
             // Connect to current autocomplete URL
-            URLConnection conditionConnect = new URL(url + searchQuery).openConnection();
+            URLConnection conditionConnect = Urls.create(url + searchQuery, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
             conditionConnect.setRequestProperty("Accept-Charset", charset);
             InputStream searchResponse = conditionConnect.getInputStream();
 
