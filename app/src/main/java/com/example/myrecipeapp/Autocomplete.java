@@ -5,6 +5,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -65,7 +66,7 @@ public class Autocomplete implements Runnable {
             String searchString;
 
             // Add the data to string
-            while ((searchString = readSearch.readLine()) != null) {
+            while ((searchString = BoundedLineReader.readLine(readSearch, 5_000_000)) != null) {
                 searchStringBuilder.append(searchString);
             }
 
